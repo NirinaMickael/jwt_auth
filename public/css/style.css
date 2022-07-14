@@ -1,0 +1,8 @@
+.container{
+    display: grid;
+}
+.sub_container{
+    height: 20px;
+    width: 20px;
+    border: 1px solid #7676f0;
+}
