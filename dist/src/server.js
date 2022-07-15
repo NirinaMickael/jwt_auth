@@ -19,15 +19,14 @@ var Server = /** @class */ (function () {
         app.use(express_1.default.json());
         app.use(express_1.default.static("".concat(__dirname, "/public")));
         app.use(express_1.default.static("".concat(__dirname, "/views")));
-        app.use('/public', express_1.default.static('public'));
-        app.set('views', './views');
-        app.set('view engine', 'ejs');
+        app.use("/public", express_1.default.static("public"));
+        app.set("views", "./views");
+        app.set("view engine", "ejs");
     };
     Server.prototype.useRoute = function (app) {
-        app.use('/', jwt_route_1.default);
+        app.use("/", jwt_route_1.default);
     };
-    Server.prototype.handlingCors = function () {
-    };
+    Server.prototype.handlingCors = function () { };
     return Server;
 }());
 exports.default = Server;

@@ -40,11 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Register = exports.SignUser = exports.RenderHomePage = void 0;
-var dotenv_1 = __importDefault(require("dotenv"));
+var DataBase_1 = require("../config/DataBase");
 var form_1 = require("../models/form");
+var dotenv_1 = __importDefault(require("dotenv"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 dotenv_1.default.config();
+var db = new DataBase_1.ConnnectDataBase();
+DataBase_1.ConnnectDataBase.open();
 var RenderHomePage = function (req, res) {
     res.render('index');
 };
@@ -73,31 +76,39 @@ var SignUser = function (req, res) {
 };
 exports.SignUser = SignUser;
 var Register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, repassword, salt, validPassword;
+    var _a, email, password, repassword, salt, validPassword, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.body, email = _a.email, password = _a.password, repassword = _a.repassword;
-                if (!(email != "" && password != "" && repassword != "")) return [3 /*break*/, 5];
-                if (!(/@.+/g.test(email) && password == repassword)) return [3 /*break*/, 3];
-                return [4 /*yield*/, bcrypt_1.default.genSalt(10)];
+                _b.label = 1;
             case 1:
+                _b.trys.push([1, 8, , 9]);
+                if (!(email != "" && password != "" && repassword != "")) return [3 /*break*/, 6];
+                if (!(/@.+/g.test(email) && password == repassword)) return [3 /*break*/, 4];
+                return [4 /*yield*/, bcrypt_1.default.genSalt(10)];
+            case 2:
                 salt = _b.sent();
                 return [4 /*yield*/, bcrypt_1.default.hash(password, salt)];
-            case 2:
+            case 3:
                 validPassword = _b.sent();
                 res.status(201).send(validPassword).end();
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 res.status(300).send('invalid passord or email');
-                _b.label = 4;
-            case 4: return [3 /*break*/, 6];
-            case 5:
-                res.status(401).send('fill field');
-                _b.label = 6;
+                _b.label = 5;
+            case 5: return [3 /*break*/, 7];
             case 6:
+                res.status(401).send('fill field');
+                _b.label = 7;
+            case 7:
                 res.end();
-                return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 8:
+                error_1 = _b.sent();
+                res.status(500).send('error');
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

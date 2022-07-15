@@ -8,6 +8,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var server_1 = __importDefault(require("./server"));
 dotenv_1.default.config();
 var PORT = process.env.PORT;
+var uri = "mongodb+srv://Mickael:55zDxhTbEZuPf6Hi@newcluster.aqemw.mongodb.net/?retryWrites=true&w=majority";
 var server = new server_1.default((0, express_1.default)());
 server.createServer().listen(PORT, function () {
     console.log("Connected successfully on port ".concat(PORT));
