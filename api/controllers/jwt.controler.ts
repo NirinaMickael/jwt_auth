@@ -19,7 +19,7 @@ export const SignUser = (req:Request,res:Response)=>{
          algorithm:'HS256',
          expiresIn:parseInt(process.env.jwtExpirySeconds as string) *100
       })
-      console.log('token',token);
+      // console.log('token',token);
       // set the cookue as the token string,with a similar max age is 
       // the token
       
