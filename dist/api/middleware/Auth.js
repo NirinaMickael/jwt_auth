@@ -8,26 +8,26 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var Check = function (req, res, next) {
+    var token = req.headers.token;
     try {
-        var token = req.body.token;
         if (!token)
             return res.status(401).end();
         var playload = void 0;
         try {
             playload = jsonwebtoken_1.default.verify(token, process.env.jwtKey);
-            next();
+            return next();
         }
-        catch (e) {
-            console.log(e);
+        catch (error) {
+            if (error instanceof jsonwebtoken_1.default.JsonWebTokenError) {
+                return res.status(401).end();
+            }
+            else {
+                return res.status(400).end();
+            }
         }
     }
     catch (error) {
-        if (error instanceof jsonwebtoken_1.default.JsonWebTokenError) {
-            res.status(401).end();
-        }
-        else {
-            return res.status(400).end();
-        }
+        res.send('ldskjds');
     }
 };
 exports.Check = Check;

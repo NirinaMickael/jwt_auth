@@ -7,7 +7,10 @@ var tictacRoute = (0, express_1.Router)();
 tictacRoute.get('/', Auth_1.Check, function (req, res) {
     (0, jwt_controler_1.RenderHomePage)(req, res);
 });
-tictacRoute.post('/sign', function (req, res) {
+tictacRoute.get('/sign', function (req, res) {
     (0, jwt_controler_1.SignUser)(req, res);
+});
+tictacRoute.post('/register', function (req, res) {
+    (0, jwt_controler_1.Register)(req, res);
 });
 exports.default = tictacRoute;
